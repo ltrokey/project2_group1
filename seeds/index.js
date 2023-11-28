@@ -1,12 +1,32 @@
-//Loads the express module
-const express = require('express');
-//Creates our express server
-const app = express();
-const port = 3000;
-//Serves static files (we need it to import a css file)
-app.use(express.static('public'))
-//Sets a basic route
-app.get('/', (req, res) => res.send('Hello World !'));
+const seedCategories = require("./categoriesSeeds");
+const seedProducts = require("./productsSeeds");
+const seedUsers = require("./userSeeds");
+const seedComments = require("./commentSeeds");
 
-//Makes the app listen to port 3000
-app.listen(port, () => console.log(`App listening to port ${port}`));
+const sequelize = require("../config/connection");
+
+const seedData = async () => {
+  try {
+    await sequelize.sync({ force: true });
+    console.log("\n---- Database Synced----\n");
+
+    await seedCategories();
+    console.log("\n---- Added Categories----\n");
+
+    await seedProducts();
+    console.log("\n---- Added Products----\n");
+
+    await seedUsers();
+    console.log("\n---- Added Users----\n");
+
+    await seedComments();
+    console.log("\n---- Added Comments----\n");
+
+    process.exit(0);
+  } catch (error) {
+    console.error("Error during seeding:", error);
+    process.exit(1);
+  }
+};
+
+seedData();
