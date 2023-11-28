@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS coinquest_db;
 CREATE DATABASE coinquest_db;
 
+
 Table users {
   id integer [primary key]
   username varchar
@@ -28,3 +29,4 @@ Table comment {
   product_id integer [ref: > products.id] // many to many
   user_id integer [ref: > users.id] //one to many
 }
+
