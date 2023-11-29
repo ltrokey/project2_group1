@@ -77,7 +77,6 @@ router.get("/product/:id", async (req, res) => {
   }
 });
 
-// Directing to home, should redirect to profile?
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/");

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Users } = require("../../models");
 
-// CREATE New User
+// CREATE New User - NEED to add view code & JS function
 router.post("/signup", async (req, res) => {
   try {
     const dbUserData = Users.create({
@@ -22,7 +22,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// USER Login
+// USER Login - NEED to add view code & JS function
 router.post("/login", async (req, res) => {
   try {
     const dbUserData = await Users.findOne({
@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//Logout - NEED to add button & JS function
+//Logout - NEED to add nav link & JS function
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
