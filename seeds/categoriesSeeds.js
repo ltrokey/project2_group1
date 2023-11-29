@@ -2,13 +2,13 @@ const { Categories } = require("../models");
 
 const categoriesData = [
   {
-    categories_name: "Under $25",
+    name: "Under $25",
   },
   {
-    categories_name: "$25 to $100",
+    name: "$25 to $100",
   },
   {
-    categories_name: "Over $100",
+    name: "Over $100",
   },
 ];
 

@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { Users } = require("../models");
 const bcrypt = require("bcrypt");
 
 const userData = [
@@ -91,7 +91,7 @@ const seedUsers = async () => {
       })
     );
 
-    await User.bulkCreate(usersWithHashedPasswords);
+    await Users.bulkCreate(usersWithHashedPasswords);
     console.log("Users seeded successfully!");
   } catch (error) {
     console.error("Error during users seeding:", error);
