@@ -60,8 +60,8 @@ router.get("/category/:id", async (req, res) => {
   }
 });
 
-//GET one Product
-router.get("/product/:id", withAuth, async (req, res) => {
+//GET one Product - Should user be loggedIn for access, add withAuth?
+router.get("/product/:id", async (req, res) => {
   try {
     const dbProductData = await Products.findByPk(req.params.id);
 
@@ -75,6 +75,14 @@ router.get("/product/:id", withAuth, async (req, res) => {
     console.log(err);
     res.status(500).json(err);
   }
+});
+
+router.get("/signup", (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
+  res.render("signup");
 });
 
 module.exports = router;
