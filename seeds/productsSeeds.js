@@ -7,7 +7,6 @@ const productsData = [
     price: 13,
     filename: "01_25cat_sketchpad.jpg",
     categories_id: 1,
-    user_id: [5, 7, 11],
   },
   {
     title: "Galaxy Moon Lamp",
@@ -15,7 +14,6 @@ const productsData = [
     price: 24,
     filename: "01_25cat_moonlamp.jpg",
     categories_id: 1,
-    user_id: [1, 7, 14],
   },
   {
     title: "Robot Toys",
@@ -23,7 +21,6 @@ const productsData = [
     price: 15,
     filename: "01_25cat_robottoys.jpg",
     categories_id: 1,
-    user_id: [4, 8],
   },
   {
     title: "Shape Shifting Box",
@@ -32,7 +29,6 @@ const productsData = [
     price: 22,
     filename: "01_25cat_shapebox.jpg",
     categories_id: 1,
-    user_id: [7, 14],
   },
   {
     title: "Spot it!",
@@ -40,7 +36,6 @@ const productsData = [
     price: 5,
     filename: "01_cat25_spotit.jpg",
     categories_id: 1,
-    user_id: [8, 11],
   },
   {
     title: "Dart Board",
@@ -48,7 +43,6 @@ const productsData = [
     price: 10,
     filename: "01_cat25_dartboard.jpg",
     categories_id: 1,
-    user_id: [2, 8],
   },
   {
     title: "Magnetic Pen",
@@ -56,7 +50,6 @@ const productsData = [
     price: 18,
     filename: "01_cat25_magneticpen.jpg",
     categories_id: 1,
-    user_id: [5, 7, 15],
   },
   {
     title: "Walkie Talkies",
@@ -64,7 +57,6 @@ const productsData = [
     price: 21,
     filename: "01_cat25_walkietalkie.jpg",
     categories_id: 1,
-    user_id: [2, 4, 12, 14],
   },
   {
     title: "Mini Bowling Game",
@@ -72,7 +64,6 @@ const productsData = [
     price: 12,
     filename: "01_cat25_minibowling.jpg",
     categories_id: 1,
-    user_id: [13],
   },
   {
     title: "L.O.L Tweens Surprise",
@@ -81,7 +72,6 @@ const productsData = [
     price: 17,
     filename: "01_cat25_loltween.jpg",
     categories_id: 1,
-    user_id: [7],
   },
   {
     title: "Flashing Cube Game",
@@ -89,7 +79,6 @@ const productsData = [
     price: 40,
     filename: "02_cat_upto100_flashingcube.jpg",
     categories_id: 2,
-    user_id: [4, 13],
   },
   {
     title: "Flying Orb Ball",
@@ -97,7 +86,6 @@ const productsData = [
     price: 32,
     filename: "02_cat_upto100_flyingorb.jpg",
     categories_id: 2,
-    user_id: [6],
   },
   {
     title: "Telescope",
@@ -106,7 +94,6 @@ const productsData = [
     price: 96,
     filename: "02_cat_upto100_telescope.jpg",
     categories_id: 2,
-    user_id: [3, 6],
   },
   {
     title: "Karaoke",
@@ -114,7 +101,6 @@ const productsData = [
     price: 37,
     filename: "02_cat_upto100_karaoke.jpg",
     categories_id: 2,
-    user_id: [7, 15],
   },
   {
     title: "Drone",
@@ -123,7 +109,6 @@ const productsData = [
     price: 64,
     filename: "02_cat_upto100_drone.jpg",
     categories_id: 2,
-    user_id: [11, 13],
   },
   {
     title: "Shooting Targets",
@@ -131,15 +116,13 @@ const productsData = [
     price: 35,
     filename: "02_cat_upto100_shootinggame.jpg",
     categories_id: 2,
-    user_id: [11, 12],
   },
   {
     title: "Castle - Magnetic Tiles",
     description: "Magnetic Tiles 102pcs with Dolls & Princess Castle Building",
     price: 40,
-    file: "02_cat_upto100_magnetictiles.jpg",
+    filename: "02_cat_upto100_magnetictiles.jpg",
     categories_id: 2,
-    user_id: [1, 10],
   },
   {
     title: "LEGO Disney Princess",
@@ -148,7 +131,6 @@ const productsData = [
     price: 52,
     filename: "02_cat_upto100_legoprincess.jpg",
     categories_id: 2,
-    user_id: [5],
   },
   {
     title: "Hoverboard",
@@ -157,7 +139,6 @@ const productsData = [
     price: 90,
     filename: "02_cat_upto100_hoverboard.jpg",
     categories_id: 2,
-    user_id: [6, 15],
   },
   {
     title: "LEGO NINJAGO TEMPLE",
@@ -166,7 +147,6 @@ const productsData = [
     price: 95,
     filename: "02_cat_upto100_legotemple.jpg",
     categories_id: 2,
-    user_id: [4, 11],
   },
   {
     title: "Laser Tag",
@@ -174,7 +154,6 @@ const productsData = [
     price: 120,
     filename: "03_cat_over100_lazertag.jpg",
     categories_id: 3,
-    user_id: [9, 14],
   },
   {
     title: "Dance Mat",
@@ -183,7 +162,6 @@ const productsData = [
     price: 103,
     filename: "03_cat_over100_dancemat.jpg",
     categories_id: 3,
-    user_id: [3, 5, 10, 13],
   },
   {
     title: "Ninja Obstacle Course",
@@ -192,7 +170,6 @@ const productsData = [
     price: 140,
     filename: "03_cat_over100_obstaclecourse.jpg",
     categories_id: 3,
-    user_id: [2],
   },
   {
     title: "Smart Robot",
@@ -201,7 +178,6 @@ const productsData = [
     price: 120,
     filename: "03_cat_over100_smartrobot.jpg",
     categories_id: 3,
-    user_id: [6, 13],
   },
   {
     title: "Barbie Dreamhouse",
@@ -209,7 +185,6 @@ const productsData = [
     price: 140,
     filename: "03_cat_over100_barbiereamhouse.jpg",
     categories_id: 3,
-    user_id: [],
   },
   {
     title: "LEGO Super Mario Castle",
@@ -217,7 +192,6 @@ const productsData = [
     price: 105,
     filename: "03_cat_over100_legomariocastle.jpg",
     categories_id: 3,
-    user_id: [12],
   },
   {
     title: "Police Car Ride",
@@ -226,7 +200,6 @@ const productsData = [
     price: 180,
     filename: "03_cat_over100_policecar.jpg",
     categories_id: 3,
-    user_id: [9, 12],
   },
   {
     title: "Movie Theatre Snack Bar",
@@ -235,7 +208,6 @@ const productsData = [
     price: 140,
     filename: "03_cat_over100_snackbar.jpg",
     categories_id: 3,
-    user_id: [5],
   },
   {
     title: "Electric Scooter",
@@ -243,7 +215,6 @@ const productsData = [
     price: 122,
     filename: "03_cat_over100_electricscooter.jpg",
     categories_id: 3,
-    user_id: [3, 9],
   },
   {
     title: "Disney Wooden Dollhouse",
@@ -251,7 +222,6 @@ const productsData = [
     filename: "03_cat_over100_disneydollhouse.jpg",
     price: 146,
     categories_id: 3,
-    user_id: [10, 15],
   },
 ];
 

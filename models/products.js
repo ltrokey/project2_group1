@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection.js');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
 class Products extends Model {}
 
@@ -9,44 +9,41 @@ Products.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       validate: {
-        isDecimal: true
-      }
+        isDecimal: true,
+      },
     },
-    category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'category',
-        key: 'id'
-      }
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'users',
-        key: 'id'
-      }
-    },
-    filename :{
+    filename: {
       type: DataTypes.STRING,
-    }
+      allowNull: false,
+    },
+    categories_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "categories",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'products',
+    modelName: "products",
   }
 );
 

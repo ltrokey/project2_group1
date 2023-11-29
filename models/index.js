@@ -1,32 +1,46 @@
-// import models
-const Category = require('./categories');
-const Comment = require('./comments');
-const Products = require('./products');
-const Users = require('./users');
+const Categories = require("./categories");
+const Products = require("./products");
+const Users = require("./users");
+const Comments = require("./comments");
+const ProductUsers = require("./productUsers");
 
-// Products belongsTo Category
-Category.hasMany(Products, {
-  foreignKey: 'products_id',
+Categories.hasMany(Products, {
+  foreignKey: "categories_id",
+  onDelete: "CASCADE",
 });
 
-// Categories have many Products
-Users.hasMany(Comment, {
-  foreignKey: 'category_id',
+Products.belongsTo(Categories, {
+  foreignKey: "categories_id",
+  onDelete: "CASCADE",
 });
 
-// Products belongToMany Tags (through ProductTag)
-Comment.belongsToMany(Users, {
-  foreignKey: 'user_id',
+Products.hasMany(Comments, {
+  foreignKey: "products_id",
+  onDelete: "CASCADE",
 });
 
-// Tags belongToMany Products (through ProductTag)
-Users.hasMany(Products, {
-  foreignKey: 'user_id',
+Products.belongsToMany(Users, {
+  through: ProductUsers,
+  onDelete: "CASCADE",
+});
+
+Users.hasMany(Comments, {
+  foreignKey: "users_id",
+});
+
+Users.belongsToMany(Products, {
+  through: ProductUsers,
+  onDelete: "CASCADE",
+});
+
+Comments.belongsTo(Users, {
+  foreignKey: "users_id",
 });
 
 module.exports = {
-  Category,
-  Comment,
+  Categories,
   Products,
   Users,
+  Comments,
+  ProductUsers,
 };
