@@ -22,4 +22,44 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// USER Login
+router.post("/login", async (req, res) => {
+  try {
+    const dbUserData = await Users.findOne({
+      where: {
+        username: req.body.username.toLowerCase(),
+      },
+    });
+
+    if (!dbUserData) {
+      res
+        .status(400)
+        .json({ message: "Incorrect username or password, please try again." });
+      return;
+    }
+
+    const validpassword = await dbUserData.checkPassword(req.body.password);
+
+    if (!validpassword) {
+      res
+        .status(400)
+        .json({ message: "Incorrect username or password, please try again." });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.users_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.loggedIn = true;
+
+      res
+        .status(200)
+        .json({ user: dbUserData, message: "You are now logged in!" });
+    });
+  } catch (error) {
+    console.error(error);
+    errorHandler(error, req, res, next);
+  }
+});
+
 module.exports = router;
