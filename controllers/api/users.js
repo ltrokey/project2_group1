@@ -4,10 +4,15 @@ const { Users } = require("../../models");
 // CREATE New User - NEED to add view code & JS function
 router.post("/signup", async (req, res) => {
   try {
+    console.log("Request Body:", req.body);
+
     const dbUserData = Users.create({
       username: req.body.username.toLowerCase(),
       password: req.body.password,
+      funds: req.body.funds,
     });
+
+    console.log(dbUserData);
 
     req.session.save(() => {
       req.session.users_id = dbUserData.users_id;

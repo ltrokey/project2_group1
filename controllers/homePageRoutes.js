@@ -21,8 +21,14 @@ router.get("/", async (req, res) => {
       product.get({ plain: true })
     );
 
+    const user = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+    const userFunds = user ? user.funds : null;
+
     res.render("home", {
       products,
+      userFunds,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -111,17 +117,11 @@ router.get("/product/:id", async (req, res) => {
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
 
-    const user = req.session.users_id
-      ? await Users.findByPk(req.session.users_id)
-      : null;
-    const userFunds = user ? user.funds : null;
-
     res.render("singleItem", {
       product: {
         ...product,
         comments: sortedComments,
       },
-      userFunds,
       compareValues,
       loggedIn: req.session.loggedIn,
     });

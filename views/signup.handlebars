@@ -3,28 +3,33 @@
   <h3>Sign Up</h3>
 
   <form class="signUpForm" action="/api/users/signup" method="POST">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
-    </div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required />
 
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-    </div>
+    <label for="funds">QC Funds:</label>
+    <input
+      type="number"
+      id="funds"
+      name="funds"
+      required
+      placeholder="Enter QC Funds"
+      min="0"
+      max="100000"
+      step="1"
+    />
 
-    <div>
-      <label for="confirmPassword">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        required
-      />
-    </div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      name="confirmPassword"
+      required
+    />
 
     <button type="submit">Sign Up</button>
-
   </form>
 
   <div>
