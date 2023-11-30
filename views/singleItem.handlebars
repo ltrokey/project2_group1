@@ -1,27 +1,41 @@
 <div class="item">
-    <h2>{{ title }}</h2>
-    <p>Price: ${{ price }}</p>
-    {{#if loggedIn}}
-    <p>Remaining CQ Balance: {{ funds }}</p>
+  <h2>{{product.title}}</h2>
+  <p>Price: ${{product.price}}</p>
+  {{#if loggedIn}}
+    {{#if (compareValues userFunds "<" product.price)}}
+      <p>You don't have enough funds yet. You are
+        {{calcDifference userFunds product.price}}
+        away!</p>
+    {{else}}
+      {{#if (compareValues userFunds ">" product.price)}}
+        <p>Congratulations! You have more than enough funds for this quest!</p>
+      {{else}}
+        {{#if (compareValues userFunds "==" product.price)}}
+          <p>Congratulations! You have exactly the enough funds for this quest!</p>
+        {{else}}
+          <p>You don't have the exact funds needed.</p>
+        {{/if}}
+      {{/if}}
     {{/if}}
-    <form action="/favorite/{{ categories_id }}" method="POST">
+  {{/if}}
+
+  <form action="/favorite/{{categories_id}}" method="POST">
     <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
+  </form>
+  <div class="comments">
+    <h3>Comment Section</h3>
+    <ul>
+      {{#each comments}}
+        <li>{{content}}</li>
+        <li class="meta">{{user.username}}, {{format_date created_at}}</li>
+      {{/each}}
+    </ul>
+    <form action="/comment/{{comments.id}}" method="POST">
+      <textarea name="comment" placeholder="Submit a comment"></textarea>
+      <button type="submit">Submit</button>
     </form>
-    <div class="comments">
-        <h3>Comment Section</h3>
-        <ul>
-            {{#each comments}}
-                <li>{{content}}</li>
-                <li class="meta">{{user.username}}, {{format_date created_at}}</li>
-            {{/each}}
-        </ul>
-        <form action="/comment/{{ comments.id }}" method="POST">
-            <textarea name="comment" placeholder="Submit a comment"></textarea>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-</div>
+  </div>
 </div>
 
-{{!-- <script src="/js/favoriteItem.js"></script>
-<script src="/js/addComment.js"></script> --}}
+{{! <script src="/js/favoriteItem.js"></script>
+<script src="/js/addComment.js"></script> }}

@@ -57,6 +57,24 @@ router.get("/products/:category_id", async (req, res) => {
   }
 });
 
+// Compare Funds vs Price
+const compareValues = (value1, operator, value2) => {
+  // Convert values to numbers
+  const num1 = parseFloat(value1);
+  const num2 = parseFloat(value2);
+
+  switch (operator) {
+    case "<":
+      return num1 < num2;
+    case ">":
+      return num1 > num2;
+    case "==":
+      return num1 === num2;
+    default:
+      return false;
+  }
+};
+
 //GET one Product - Should user be loggedIn for access, add withAuth?
 router.get("/product/:id", async (req, res) => {
   try {
@@ -65,7 +83,7 @@ router.get("/product/:id", async (req, res) => {
       include: [
         {
           model: Users,
-          attributes: ["id", "username"],
+          attributes: ["id", "username", "funds"],
         },
         {
           model: Comments,
@@ -93,11 +111,18 @@ router.get("/product/:id", async (req, res) => {
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
 
+    const user = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+    const userFunds = user ? user.funds : null;
+
     res.render("singleItem", {
       product: {
         ...product,
         comments: sortedComments,
       },
+      userFunds,
+      compareValues,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {

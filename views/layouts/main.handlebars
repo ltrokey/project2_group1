@@ -16,6 +16,7 @@
         <a href="/">Home</a>
         <a href="/profile">Profile</a>
         {{#if loggedIn}}
+          <a href="/cqFunds">CQ Funds: ${{userFunds}}</a>
           <button id="logout">Logout</button>
         {{else}}
           <a href="/login" id="login">Login</a>
