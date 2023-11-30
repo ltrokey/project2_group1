@@ -1,3 +1,98 @@
 .heart-emoji {
-    font-variant-emoji: 💗;
+  font-variant-emoji: 💗;
+}
+
+/* Box sizing */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Colors */
+:root {
+  --primary-color: ;
+  --primaryLight-color: ;
+  --secondary-color: ;
+  --secondaryDark-color: ;
+  --light-color: ;
+  --medium-color: ;
+  --dark-color: ;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100vh; */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 h2 h3,
+h4,
+h5,
+h6,
+main {
+  flex: 1;
+  padding: 2%;
+}
+
+header,
+footer {
+  padding: 1%;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+}
+
+/* View Body Container */
+.bodyContainer {
+  padding-left: 2%;
+  display: flex;
+  height: auto;
+}
+
+.productContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.productCards {
+  width: 20%;
+  margin-bottom: 20px;
+  margin-left: 2%;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.productCards img {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive styles for screens 320px and below */
+@media (max-width: 320px) {
+}
+
+@media (max-width: 768px) {
+  .productCards {
+    width: 100%;
+  }
+}
+/* Responsive styles for screens 2560px and below */
+@media (min-width: 2560px) {
 }
