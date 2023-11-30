@@ -47,7 +47,7 @@ router.get("/products/:category_id", async (req, res) => {
       product.get({ plain: true })
     );
 
-    res.render("category", {
+    res.render("home", {
       products,
       loggedIn: req.session.loggedIn,
     });
