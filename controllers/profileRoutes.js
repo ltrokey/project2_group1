@@ -33,14 +33,14 @@ router.get("/", withAuth, async (req, res) => {
       product.get({ plain: true })
     );
 
-    const user = await Users.findByPk(req.session.users_id);
+    const userId = await Users.findByPk(req.session.users_id);
 
-    const userPlain = user.get({ plain: true });
+    const userPlain = userId.get({ plain: true });
 
-    const userFund = req.session.users_id
+    const user = req.session.users_id
       ? await Users.findByPk(req.session.users_id)
       : null;
-    const userFunds = userFund ? user.funds : null;
+    const userFunds = user ? user.funds : null;
 
     res.render("profile", {
       userPlain,
