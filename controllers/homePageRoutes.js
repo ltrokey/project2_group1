@@ -5,7 +5,7 @@ const {
   Products,
   Users,
   ProductUsers,
-  Comments
+  Comments,
 } = require("../models");
 
 const withAuth = require("../utils/auth");
@@ -13,21 +13,16 @@ const withAuth = require("../utils/auth");
 // GET all products for homepage
 router.get("/", async (req, res) => {
   try {
-    const dbCategoriesData = await Categories.findAll({
-      include: [
-        {
-          model: Products,
-          attributes: ["title", "filename"],
-        },
-      ],
+    const dbProductsData = await Products.findAll({
+      attributes: ["id", "title", "filename"],
     });
 
-    const categories = dbCategoriesData.map((category) =>
-      category.get({ plain: true })
+    const products = dbProductsData.map((product) =>
+      product.get({ plain: true })
     );
 
     res.render("home", {
-      categories,
+      products,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -36,25 +31,26 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Get one Category & Products
-router.get("/category/:id", async (req, res) => {
+//Get Products by Category
+router.get("/products/:category_id", async (req, res) => {
   try {
-    const dbCategoryData = await Categories.findByPk(req.params.id, {
-      include: [
-        {
-          model: Products,
-          attributes: ["id", "title", "description", "price", "filename"],
-        },
-      ],
+    const category_id = req.params.category_id;
+
+    const dbProductsData = await Products.findAll({
+      where: {
+        categories_id: category_id,
+      },
     });
 
-    const category = dbCategoryData.get({ plain: true });
+    const products = dbProductsData.map((product) =>
+      product.get({ plain: true })
+    );
 
     res.render("category", {
-      category,
+      products,
       loggedIn: req.session.loggedIn,
     });
-  } catch {
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
