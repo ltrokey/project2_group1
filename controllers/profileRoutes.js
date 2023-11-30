@@ -37,8 +37,14 @@ router.get("/", withAuth, async (req, res) => {
 
     const userPlain = user.get({ plain: true });
 
+    const userFund = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+    const userFunds = userFund ? user.funds : null;
+
     res.render("profile", {
       userPlain,
+      userFunds,
       products,
       loggedIn: req.session.loggedIn,
     });
