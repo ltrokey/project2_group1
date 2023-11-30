@@ -1,32 +1,45 @@
 const sequelize = require("../config/connection");
 const router = require("express").Router();
 const withAuth = require("../utils/auth");
+const { Op } = require("sequelize");
 const { Products, Users, ProductUsers, Comments } = require("../models");
 
 //Get Products by Product Users
 router.get("/", withAuth, async (req, res) => {
   try {
-    const user = await Users.findByPk(req.session.users_id, {
-      include: [
-        {
-          model: Products,
-          through: ProductUsers,
-        },
-      ],
+    const productUsers = await ProductUsers.findAll({
+      where: {
+        users_id: req.session.users_id,
+      },
     });
 
-    if (!user) {
+    const productIds = productUsers.map(
+      (productUser) => productUser.products_id
+    );
+
+    const dbUserProducts = await Products.findAll({
+      where: {
+        id: {
+          [Op.in]: productIds,
+        },
+      },
+    });
+
+    if (!dbUserProducts) {
       return res.status(404).render("404");
     }
 
-    console.log("\n--------------User----------\n", user);
-    console.log("\n--------------User Product----------\n", user.Products);
+    const products = dbUserProducts.map((product) =>
+      product.get({ plain: true })
+    );
 
-    const userProducts = user.Products || [];
+    const user = await Users.findByPk(req.session.users_id);
+
+    const userPlain = user.get({ plain: true });
 
     res.render("profile", {
-      user,
-      userProducts,
+      userPlain,
+      products,
       loggedIn: req.session.loggedIn,
     });
   } catch (error) {
