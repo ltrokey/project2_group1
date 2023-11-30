@@ -1,3 +1,7 @@
+.heart-emoji {
+  font-variant-emoji: 💗;
+}
+
 /* Box sizing */
 html {
   box-sizing: border-box;

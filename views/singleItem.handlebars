@@ -1,0 +1,27 @@
+<div class="item">
+    <h2>{{ title }}</h2>
+    <p>Price: ${{ price }}</p>
+    {{#if loggedIn}}
+    <p>Remaining CQ Balance: {{ funds }}</p>
+    {{/if}}
+    <form action="/favorite/{{ categories_id }}" method="POST">
+    <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
+    </form>
+    <div class="comments">
+        <h3>Comment Section</h3>
+        <ul>
+            {{#each comments}}
+                <li>{{content}}</li>
+                <li class="meta">{{user.username}}, {{format_date created_at}}</li>
+            {{/each}}
+        </ul>
+        <form action="/comment/{{ comments.id }}" method="POST">
+            <textarea name="comment" placeholder="Submit a comment"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+
+<script src="/js/favoriteItem.js"></script>
+<script src="/js/addComment.js"></script>

@@ -1,0 +1,11 @@
+<h1>Welcome, {{ username }}!</h1>
+<h2>Savings: {{}} </h2>
+<div class="user-items">
+    <h2>Quest Items</h2>
+    <ul>
+        {{#each items}}
+            <li>{{ title }} - Price: ${{ price }}</li>
+            <li>{{ image }}</li>
+        {{/each}}
+    </ul>
+</div>
