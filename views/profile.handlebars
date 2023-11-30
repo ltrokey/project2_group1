@@ -1,11 +1,15 @@
-<h1>Welcome, {{ username }}!</h1>
-<h2>Savings: {{}} </h2>
-<div class="user-items">
-    <h2>Quest Items</h2>
-    <ul>
-        {{#each items}}
-            <li>{{ title }} - Price: ${{ price }}</li>
-            <li>{{ filename }}</li>
-        {{/each}}
-    </ul>
+<h1>Welcome, {{userPlain.username}}!</h1>
+
+<h2>Quest Items</h2>
+<div class="productContainer">
+  {{#each products as |product|}}
+    <div class="productCards">
+      <h3>{{product.title}}</h3>
+      <div>
+        <a href="/product/{{product.id}}">
+          <img src="/images/{{product.filename}}" alt="{{product.title}}" />
+        </a>
+      </div>
+    </div>
+  {{/each}}
 </div>

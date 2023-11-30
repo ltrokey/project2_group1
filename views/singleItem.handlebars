@@ -1,27 +1,68 @@
 <div class="item">
-    <h2>{{ title }}</h2>
-    <p>Price: ${{ price }}</p>
-    {{#if loggedIn}}
-    <p>Remaining CQ Balance: {{ funds }}</p>
+
+  <h2>{{product.title}}</h2>
+
+  <p>{{product.description}}</p>
+
+  <img src="/images/{{product.filename}}" alt="{{product.description}}" />
+
+  <p>Price: ${{product.price}}</p>
+
+  {{#if loggedIn}}
+    {{! User funds vs Price }}
+    {{#if (compareValues userFunds "<" product.price)}}
+      <p>You don't have enough funds yet. You are
+        {{calcDifference userFunds product.price}}
+        away!</p>
+    {{else}}
+      {{#if (compareValues userFunds ">" product.price)}}
+        <p>Congratulations! You have more than enough funds for this quest!</p>
+      {{else}}
+        {{#if (compareValues userFunds "==" product.price)}}
+          <p>Congratulations! You have exactly the enough funds for this quest!</p>
+        {{else}}
+          <p>You don't have the exact funds needed.</p>
+        {{/if}}
+      {{/if}}
     {{/if}}
-    <form action="/favorite/{{ categories_id }}" method="POST">
-    <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
+
+    {{! Favorite }}
+    <form action="/favorite/{{categories_id}}" method="POST">
+      <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
     </form>
-    <div class="comments">
-        <h3>Comment Section</h3>
-        <ul>
-            {{#each comments}}
-                <li>{{content}}</li>
-                <li class="meta">{{user.username}}, {{format_date created_at}}</li>
-            {{/each}}
-        </ul>
-        <form action="/comment/{{ comments.id }}" method="POST">
-            <textarea name="comment" placeholder="Submit a comment"></textarea>
-            <button type="submit">Submit</button>
-        </form>
+
+    {{! Add Comment }}
+    <div>
+      <form class="commentForm", action="/api/comments" method="POST">
+        <label for="comment">Leave a Comment:</label>
+        <textarea id="commentContent" name="content" required></textarea>
+        <input type="hidden" name="product_id" value="{{product.id}}" />
+
+        <div>
+          <button type="submit">Add Comment</button>
+        </div>
+      </form>
     </div>
-</div>
+
+  {{else}}
+    <p><a href="/login">Login</a> to leave a comment.</p>
+  {{/if}}
+
+  {{!-- Comments --}}
+  <div class="comments">
+    <h3>Comment Section</h3>
+    <ul>
+      {{#each product.comments as |comment|}}
+        <li>
+            <p> Comment by {{comment.user.username}}
+                on
+                {{format_date comment.created_at}}
+            </p>
+            <p>{{comment.content}}</p>
+        </li>
+      {{/each}}
+    </ul>
 </div>
 
-<script src="/js/favoriteItem.js"></script>
+{{!-- <script src="/js/favoriteItem.js"></script> --}}
 <script src="/js/addComment.js"></script>

@@ -1,27 +1,57 @@
-const sequelize = require('../config/connection');
+const sequelize = require("../config/connection");
 const router = require("express").Router();
-const {Users, Products} = require('../models');
+const withAuth = require("../utils/auth");
+const { Op } = require("sequelize");
+const { Products, Users, ProductUsers, Comments } = require("../models");
 
-router.get('/', (req, res) => {
-    Users.findAll({
-        attributes: { exclude: ['[password']}
-    })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
-        console.log(err); 
-        res.status(500).json(err);
+//Get Products by Product Users
+router.get("/", withAuth, async (req, res) => {
+  try {
+    const productUsers = await ProductUsers.findAll({
+      where: {
+        users_id: req.session.users_id,
+      },
     });
+
+    const productIds = productUsers.map(
+      (productUser) => productUser.products_id
+    );
+
+    const dbUserProducts = await Products.findAll({
+      where: {
+        id: {
+          [Op.in]: productIds,
+        },
+      },
+    });
+
+    if (!dbUserProducts) {
+      return res.status(404).render("404");
+    }
+
+    const products = dbUserProducts.map((product) =>
+      product.get({ plain: true })
+    );
+
+    const user = await Users.findByPk(req.session.users_id);
+
+    const userPlain = user.get({ plain: true });
+
+    const userFund = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+    const userFunds = userFund ? user.funds : null;
+
+    res.render("profile", {
+      userPlain,
+      userFunds,
+      products,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (error) {
+    console.error("Profile error:", error);
+    res.status(500).json({ error: "An unexpected error occurred." });
+  }
 });
-
-router.get('/profile', (req, res) => {
-    Products.findAll({
-        attributes: ['title', 'price', 'filename']
-      })
-    })
-    .then(dbProductData => res.json(dbProductData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
 
 module.exports = router;

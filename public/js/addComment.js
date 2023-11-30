@@ -1,32 +1,47 @@
-async function commentFormHandler(event) {
-    event.preventDefault();
-  
-    const comment_text = document.querySelector('input[name="comments-body"]').value.trim();
-  
-    const post_id = window.location.toString().split('/')[
-      window.location.toString().split('/').length - 1
-    ];
-  
-    if (comment_text) {
-        const response = await fetch('/comment/:id', {
-          method: 'POST',
-          body: JSON.stringify({
-            post_id,
-            comment_text
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      
-        if (response.ok) {
-          document.location.reload();
-          
-        } else {
-          alert(response.statusText);
-          document.querySelector('.comment-form').style.display = "block";
-        }
-      }
+const addCommentHandler = async (event) => {
+  event.preventDefault();
+
+  const commentContent = document.querySelector("#commentContent").value.trim();
+  const product_id = document.querySelector("input[name='product_id']").value;
+
+  if (!commentContent) {
+    alert("Comment cannot be empty!");
+    return;
   }
-  
-  document.querySelector('.comment-form').addEventListener('submit', commentFormHandler);
+
+  console.log("\n------commentContent---------\n", commentContent);
+  console.log("\n------Product ID---------\n", product_id);
+
+  const json = JSON.stringify({ product_id, content: commentContent });
+
+  console.log("\n----------JSON---------\n", json);
+
+  try {
+    const response = await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify({ product_id, content: commentContent }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log("\n------Response---------\n", response);
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Comment added successfully:", data);
+      window.location.reload();
+    } else {
+      const errorMessage = await response.json();
+      console.error("Failed to create comment:", errorMessage);
+      alert("Failed to create comment. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error during comment creation:", error);
+    alert("An unexpected error occurred. Please try again later.");
+  }
+};
+
+document
+  .querySelector(".commentForm")
+  .addEventListener("submit", addCommentHandler);

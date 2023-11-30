@@ -30,6 +30,7 @@ Users.hasMany(Comments, {
 
 Users.belongsToMany(Products, {
   through: ProductUsers,
+  foreignKey: "users_id",
   onDelete: "CASCADE",
 });
 
