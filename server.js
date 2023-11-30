@@ -8,7 +8,7 @@ const sequelize = require("./config/connection");
 const helpers = require("./utils/helpers");
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const sess = {
   secret: process.env.SESSION_SECRET,
   cookie: {
@@ -31,5 +31,7 @@ app.use(routes);
 sequelize.sync({ force: false }).then(() => {
   app.listen(port, () =>
     console.log(`Now listening, http://localhost:${port}`)
+    // console.log(`Now listening, http://index.html:${port}`)
   );
 });
+
