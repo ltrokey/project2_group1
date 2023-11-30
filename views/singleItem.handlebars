@@ -27,7 +27,7 @@
     {{/if}}
 
     {{! Favorite }}
-    <form action="/favorite/{{categories_id}}" method="POST">
+    <form action="/api/productUsers/{{product.id}}" method="POST">
       <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
     </form>
 
