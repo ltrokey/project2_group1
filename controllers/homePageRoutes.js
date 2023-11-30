@@ -81,7 +81,7 @@ const compareValues = (value1, operator, value2) => {
   }
 };
 
-//GET one Product - Should user be loggedIn for access, add withAuth?
+//GET one Product
 router.get("/product/:id", async (req, res) => {
   try {
     const dbProductData = await Products.findByPk(req.params.id, {
@@ -112,6 +112,11 @@ router.get("/product/:id", async (req, res) => {
 
     const product = dbProductData.get({ plain: true });
 
+    const user = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+    const userFunds = user ? user.funds : null;
+
     // Sort comments by created_at in descending order
     const sortedComments = product.comments.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
@@ -122,6 +127,7 @@ router.get("/product/:id", async (req, res) => {
         ...product,
         comments: sortedComments,
       },
+      userFunds,
       compareValues,
       loggedIn: req.session.loggedIn,
     });
