@@ -60,16 +60,48 @@ router.get("/products/:category_id", async (req, res) => {
 //GET one Product - Should user be loggedIn for access, add withAuth?
 router.get("/product/:id", async (req, res) => {
   try {
-    const dbProductData = await Products.findByPk(req.params.id);
+    const dbProductData = await Products.findByPk(req.params.id, {
+      attributes: ["id", "title", "description", "price", "filename"],
+      include: [
+        {
+          model: Users,
+          attributes: ["id", "username"],
+        },
+        {
+          model: Comments,
+          attributes: [
+            "id",
+            "created_at",
+            "content",
+            "users_id",
+            "products_id",
+          ],
+          include: [
+            {
+              model: Users,
+              attributes: ["username"],
+            },
+          ],
+        },
+      ],
+    });
 
     const product = dbProductData.get({ plain: true });
 
+    // Sort comments by created_at in descending order
+    const sortedComments = product.comments.sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+
     res.render("singleItem", {
-      product,
+      product: {
+        ...product,
+        comments: sortedComments,
+      },
       loggedIn: req.session.loggedIn,
     });
-  } catch {
-    console.log(err);
+  } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 });
