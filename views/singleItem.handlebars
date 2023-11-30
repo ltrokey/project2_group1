@@ -4,7 +4,7 @@
 
   <p>{{product.description}}</p>
 
-  <img src="/images/{{product.filename}}" alt="#" />
+  <img src="/images/{{product.filename}}" alt="{{product.description}}" />
 
   <p>Price: ${{product.price}}</p>
 
@@ -48,6 +48,7 @@
     <p><a href="/login">Login</a> to leave a comment.</p>
   {{/if}}
 
+  {{!-- Comments --}}
   <div class="comments">
     <h3>Comment Section</h3>
     <ul>

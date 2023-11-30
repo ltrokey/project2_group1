@@ -14,7 +14,7 @@ const withAuth = require("../utils/auth");
 router.get("/", async (req, res) => {
   try {
     const dbProductsData = await Products.findAll({
-      attributes: ["id", "title", "filename"],
+      attributes: ["id", "title", "filename", "description"],
     });
 
     const products = dbProductsData.map((product) =>
