@@ -5,7 +5,7 @@ const {
   Products,
   Users,
   ProductUsers,
-  Users,
+  Comments
 } = require("../models");
 
 const withAuth = require("../utils/auth");
