@@ -1,9 +1,10 @@
-{{!-- <select id="categoryFilter">
-  <option value="">All Categories</option>
-  {{#each categories}}
-    <option value="{{this.id}}">{{this.name}}</option>
-  {{/each}}
-</select> --}}
+<select id="categoryFilter">
+  <option value="1">$25 Under</option>
+  <option value="2">$25 - $100</option>
+  <option value="3">$100 and Over</option>
+</select>
+
+<a href="/">Clear Filters</a>
 
 <div class="productContainer">
   {{#each products as |product|}}
@@ -17,3 +18,5 @@
     </div>
   {{/each}}
 </div>
+
+<script src="/js/category.js"></script>

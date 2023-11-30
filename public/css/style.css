@@ -59,7 +59,6 @@ nav {
 /* View Body Container */
 .bodyContainer {
   padding-left: 2%;
-  display: flex;
   height: auto;
 }
 

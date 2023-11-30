@@ -40,6 +40,7 @@ router.get("/products/:category_id", async (req, res) => {
       where: {
         categories_id: category_id,
       },
+      attributes: ["id", "title", "filename", "categories_id"],
     });
 
     const products = dbProductsData.map((product) =>
