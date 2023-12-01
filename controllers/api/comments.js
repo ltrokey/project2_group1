@@ -16,15 +16,19 @@ router.post("/", withAuth, async (req, res) => {
     console.log("\n------content-----\n", content);
     console.log("\n------product_id-----\n", product_id);
 
-    await Comments.create({
+    const created = await Comments.create({
       content,
-      user_id: req.session.users_id,
-      product_id,
+      users_id: req.session.users_id,
+      products_id: parseInt(product_id),
     });
+
+    const createdComment = created.get({ plain: true });
+
+    console.log("\n-------Created Comment------\n", createdComment);
 
     console.log("\n-------user_id------\n", req.session.users_id);
 
-    res.redirect(`/product/${product_id}`);
+    return res.json(createdComment);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to create a new comment." });
