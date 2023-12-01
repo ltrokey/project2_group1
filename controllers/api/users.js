@@ -6,18 +6,20 @@ router.post("/signup", async (req, res) => {
   try {
     console.log("Request Body:", req.body);
 
-    const dbUserData = Users.create({
+    const dbUserData = await Users.create({
       username: req.body.username.toLowerCase(),
       password: req.body.password,
       funds: req.body.funds,
     });
 
     req.session.save(() => {
-      req.session.users_id = dbUserData.users_id;
+      req.session.users_id = dbUserData.id;
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
 
       res.status(200).json(dbUserData);
+      console.log("------Sign up------", dbUserData);
+      console.log("------Session------", req.session);
     });
   } catch {
     console.log(err);
@@ -33,7 +35,7 @@ router.post("/login", async (req, res) => {
         username: req.body.username.toLowerCase(),
       },
     });
-
+    console.log("------login-----", dbUserData);
     if (!dbUserData) {
       res
         .status(400)
@@ -65,7 +67,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//Logout - NEED to add nav link & JS function
+//Logout
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
