@@ -59,24 +59,24 @@ nav {
 /* View Body Container */
 .bodyContainer {
   padding-left: 2%;
-  display: flex;
   height: auto;
 }
 
 .productContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .productCards {
-  width: 20%;
+  width: 30%;
   margin-bottom: 20px;
   margin-left: 2%;
   box-sizing: border-box;
   border: 1px solid #ddd;
   padding: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .productCards img {

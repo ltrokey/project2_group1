@@ -45,6 +45,13 @@ Users.init(
             newUserPwData.password,
             10
           );
+
+          if (newUserPwData.funds !== undefined) {
+            newUserPwData.funds = parseFloat(newUserPwData.funds);
+          } else {
+            newUserPwData.funds = 0;
+          }
+
           return newUserPwData;
         } catch (error) {
           console.error("Error hashing password:", error);
@@ -52,6 +59,7 @@ Users.init(
         }
       },
     },
+
     sequelize,
     timestamps: true,
     freezeTableName: true,

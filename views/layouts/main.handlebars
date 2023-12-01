@@ -14,8 +14,9 @@
 
       <nav>
         <a href="/">Home</a>
-        <a href="/profile">profile</a>
+        <a href="/profile">Profile</a>
         {{#if loggedIn}}
+          <a href="/funds">CQ Funds: ${{userFunds}}</a>
           <button id="logout">Logout</button>
         {{else}}
           <a href="/login" id="login">Login</a>
