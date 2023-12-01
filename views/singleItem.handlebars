@@ -34,10 +34,10 @@
 
     {{! Add Comment }}
     <div>
-      <form class="commentForm", action="/api/comments" method="POST">
+      <form class="commentForm" data-logged-in="{{loggedIn}}" action="/api/comments" method="POST">
         <label for="comment">Leave a Comment:</label>
         <textarea id="commentContent" name="content" required></textarea>
-        <input type="hidden" name="product_id" value="{{product.id}}" />
+        <input type="hidden" id="addCommment" name="product_id" value="{{product.id}}" />
 
         <div>
           <button type="submit">Add Comment</button>
