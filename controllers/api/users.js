@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const { Users } = require("../../models");
+const withAuth = require("../../utils/auth");
 
-// CREATE New User - NEED to add view code & JS function
+// CREATE New User
 router.post("/signup", async (req, res) => {
   try {
-    console.log("Request Body:", req.body);
-
     const dbUserData = await Users.create({
       username: req.body.username.toLowerCase(),
       password: req.body.password,
@@ -18,8 +17,6 @@ router.post("/signup", async (req, res) => {
       req.session.loggedIn = true;
 
       res.status(200).json(dbUserData);
-      console.log("------Sign up------", dbUserData);
-      console.log("------Session------", req.session);
     });
   } catch {
     console.log(err);
@@ -27,7 +24,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// USER Login - NEED to add view code & JS function
+// USER Login
 router.post("/login", async (req, res) => {
   try {
     const dbUserData = await Users.findOne({
@@ -35,7 +32,7 @@ router.post("/login", async (req, res) => {
         username: req.body.username.toLowerCase(),
       },
     });
-    console.log("------login-----", dbUserData);
+
     if (!dbUserData) {
       res
         .status(400)
@@ -75,6 +72,27 @@ router.post("/logout", (req, res) => {
     });
   } else {
     res.status(404).end();
+  }
+});
+
+// Update Funds
+router.put("/:id", withAuth, async (req, res) => {
+  try {
+    await Users.update(
+      {
+        funds: req.body.funds,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    return res.status(200).json({ message: "Funds successfully updated!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update funds." });
   }
 });
 

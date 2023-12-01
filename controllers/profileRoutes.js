@@ -6,8 +6,6 @@ const { Products, Users, ProductUsers, Comments } = require("../models");
 
 //Get Products by Product Users
 router.get("/", withAuth, async (req, res) => {
-  console.log(req.session.users_id);
-
   try {
     const productUsers = await ProductUsers.findAll({
       where: {

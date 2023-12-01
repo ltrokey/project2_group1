@@ -9,9 +9,6 @@ const addCommentHandler = async (event) => {
     return;
   }
 
-  console.log("\n------commentContent---------\n", commentContent);
-  console.log("\n------Product ID---------\n", product_id);
-
   try {
     const response = await fetch("/api/comments", {
       method: "POST",
@@ -20,8 +17,6 @@ const addCommentHandler = async (event) => {
         "Content-Type": "application/json",
       },
     });
-
-    console.log("\n------Response---------\n", response);
 
     if (response.ok) {
       const data = await response.json();

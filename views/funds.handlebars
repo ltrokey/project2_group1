@@ -1,0 +1,27 @@
+<div>
+  <h2>Hello
+    {{userPlain.username}}, do you want to update your CoinQuest Funds?</h2>
+
+  <div>
+    <p>Current CQ Funds: ${{userFunds}}</p>
+
+    <form class="updateFundsForm" action="/api/users/:{{userid}}" method="PUT">
+
+      <label for="funds">QC Funds:</label>
+      <input
+        type="number"
+        id="funds"
+        name="funds"
+        required
+        placeholder="Enter QC Funds"
+        min="0"
+        max="100000"
+        step="1"
+      />
+
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script src="/js/updateFunds.js"></script>
