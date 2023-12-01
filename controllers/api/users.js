@@ -12,8 +12,6 @@ router.post("/signup", async (req, res) => {
       funds: req.body.funds,
     });
 
-    console.log(dbUserData);
-
     req.session.save(() => {
       req.session.users_id = dbUserData.users_id;
       req.session.username = dbUserData.username;

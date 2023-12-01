@@ -12,7 +12,7 @@
     {{! User funds vs Price }}
     {{#if (compareValues userFunds "<" product.price)}}
       <p>You don't have enough funds yet. You are
-        {{calcDifference userFunds product.price}}
+        ${{calcDifference userFunds product.price}}
         away!</p>
     {{else}}
       {{#if (compareValues userFunds ">" product.price)}}
@@ -28,8 +28,9 @@
 
     {{! Favorite }}
     <form action="/api/productUsers/{{product.id}}" method="POST">
-      <button type="submit" class="heart-emoji" id="favorite-item">💗</button>
+      <button  type="submit" class="heart-emoji" id="favorite-item">💗</button>
     </form>
+    {{!-- data-favorite="{{}}" --}}
 
     {{! Add Comment }}
     <div>
