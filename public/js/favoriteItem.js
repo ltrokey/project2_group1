@@ -1,3 +1,5 @@
+// public/js/favoriteItem.js
+
 async function addToFavorites() {
   try {
     const productId = window.location.pathname.split("/").pop();
@@ -30,10 +32,17 @@ async function addToFavorites() {
   }
 }
 
-document
-  .getElementById("favorite-item")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
+// Check if the user is logged in before adding the event listener
+const favoriteItemButton = document.getElementById("favorite-item");
 
-    addToFavorites();
-  });
+if (favoriteItemButton) {
+  const loggedIn = favoriteItemButton.getAttribute("data-logged-in");
+
+  // Check if loggedIn is truthy (assuming it's a boolean)
+  if (loggedIn) {
+    favoriteItemButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      addToFavorites();
+    });
+  }
+}
