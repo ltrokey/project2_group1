@@ -4,19 +4,20 @@
       <h2>{{product.title}}</h2>
     </div>
 
-    {{! Favorite }}
-    <div>
-      <form action="/api/productUsers/{{product.id}}" method="POST">
-        <button type="submit" class="heart-emoji" id="favorite-item" data-logged-in="{{loggedIn}}">💗</button>
-      </form>
-    </div>
+{{#if loggedIn}}
+  <div>
+    <form action="/api/productUsers/{{product.id}}" method="POST">
+      <button type="submit" class="heart-emoji" id="favorite-item" data-logged-in="{{loggedIn}}">💗</button>
+    </form>
+  </div>
+{{/if}}
 
-    <div id="single-price">
-      <p>Price: ${{product.price}}</p>
-    </div>
+  <div id="single-price">
+    <p>Price: ${{product.price}}</p>
+  </div>
 
   <div class="single-card" id="single-desc">
-   <p>{{product.description}}</p>
+    <p>{{product.description}}</p>
   </div>
 
 {{#if loggedIn}}
