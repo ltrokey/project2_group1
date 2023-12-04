@@ -1,27 +1,13 @@
 <div class="item">
 
-  <div class="align-top" id="single-title">
   <h2>{{product.title}}</h2>
-  </div>
 
-      {{! Favorite }}
-  <div>
-    <form action="/api/productUsers/{{product.id}}" method="POST">
-      <button  type="submit" class="heart-emoji" id="favorite-item">💗</button>
-    </form>
-  </div>
-    {{!-- data-favorite="{{}}" --}}
-
-  <div id="single-price">
-  <p>Price: ${{product.price}}</p>
-  </div>
-
-  <div class="single-card" id="single-desc">
   <p>{{product.description}}</p>
-  </div>
 
+  <img src="/images/{{product.filename}}" alt="{{product.description}}" />
 
-<div class="fav-item">
+  <p>Price: ${{product.price}}</p>
+
   {{#if loggedIn}}
     {{! User funds vs Price }}
     {{#if (compareValues userFunds "<" product.price)}}
@@ -48,29 +34,28 @@
 
     {{! Add Comment }}
     <div>
-      <form class="commentForm" data-logged-in="{{loggedIn}}" action="/api/comments" method="POST">
+      <form class="commentForm", action="/api/comments" method="POST">
         <label for="comment">Leave a Comment:</label>
         <textarea id="commentContent" name="content" required></textarea>
-        <input type="hidden" id="addCommment" name="product_id" value="{{product.id}}" />
+        <input type="hidden" name="product_id" value="{{product.id}}" />
 
-        <div class="comment-submit">
+        <div>
           <button type="submit">Add Comment</button>
         </div>
       </form>
     </div>
 
   {{else}}
-    <p id="com-login"><a href="/login">Login</a> to leave a comment.</p>
+    <p><a href="/login">Login</a> to leave a comment.</p>
   {{/if}}
 
   {{!-- Comments --}}
   <div class="comments">
     <h3>Comment Section</h3>
-    <div class="comm-form">
     <ul>
       {{#each product.comments as |comment|}}
         <li>
-            <p class="comm-stamp"> Comment by {{comment.user.username}}
+            <p> Comment by {{comment.user.username}}
                 on
                 {{format_date comment.created_at}}
             </p>
@@ -78,7 +63,6 @@
         </li>
       {{/each}}
     </ul>
-    </div>
 </div>
 
 <script src="/js/favoriteItem.js"></script>
