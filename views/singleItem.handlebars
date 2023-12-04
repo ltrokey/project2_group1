@@ -1,13 +1,27 @@
 <div class="item">
 
+  <div class="align-top" id="single-title">
   <h2>{{product.title}}</h2>
+  </div>
 
-  <p>{{product.description}}</p>
+      {{! Favorite }}
+  <div>
+    <form action="/api/productUsers/{{product.id}}" method="POST">
+      <button  type="submit" class="heart-emoji" id="favorite-item">💗</button>
+    </form>
+  </div>
+    {{!-- data-favorite="{{}}" --}}
 
-  <img src="/images/{{product.filename}}" alt="{{product.description}}" />
-
+  <div id="single-price">
   <p>Price: ${{product.price}}</p>
+  </div>
 
+  <div class="single-card" id="single-desc">
+  <p>{{product.description}}</p>
+  </div>
+
+
+<div class="fav-item">
   {{#if loggedIn}}
     {{! User funds vs Price }}
     {{#if (compareValues userFunds "<" product.price)}}
@@ -39,23 +53,24 @@
         <textarea id="commentContent" name="content" required></textarea>
         <input type="hidden" id="addCommment" name="product_id" value="{{product.id}}" />
 
-        <div>
+        <div class="comment-submit">
           <button type="submit">Add Comment</button>
         </div>
       </form>
     </div>
 
   {{else}}
-    <p><a href="/login">Login</a> to leave a comment.</p>
+    <p id="com-login"><a href="/login">Login</a> to leave a comment.</p>
   {{/if}}
 
   {{!-- Comments --}}
   <div class="comments">
     <h3>Comment Section</h3>
+    <div class="comm-form">
     <ul>
       {{#each product.comments as |comment|}}
         <li>
-            <p> Comment by {{comment.user.username}}
+            <p class="comm-stamp"> Comment by {{comment.user.username}}
                 on
                 {{format_date comment.created_at}}
             </p>
@@ -63,6 +78,7 @@
         </li>
       {{/each}}
     </ul>
+    </div>
 </div>
 
 <script src="/js/favoriteItem.js"></script>
