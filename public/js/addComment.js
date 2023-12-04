@@ -1,6 +1,4 @@
-const addCommentHandler = async (event) => {
-  event.preventDefault();
-
+async function addCommentHandler() {
   const commentContent = document.querySelector("#commentContent").value.trim();
   const product_id = document.querySelector("input[name='product_id']").value;
 
@@ -8,9 +6,6 @@ const addCommentHandler = async (event) => {
     alert("Comment cannot be empty!");
     return;
   }
-
-  console.log("\n------commentContent---------\n", commentContent);
-  console.log("\n------Product ID---------\n", product_id);
 
   try {
     const response = await fetch("/api/comments", {
@@ -20,8 +15,6 @@ const addCommentHandler = async (event) => {
         "Content-Type": "application/json",
       },
     });
-
-    console.log("\n------Response---------\n", response);
 
     if (response.ok) {
       const data = await response.json();
@@ -36,8 +29,13 @@ const addCommentHandler = async (event) => {
     console.error("Error during comment creation:", error);
     alert("An unexpected error occurred. Please try again later.");
   }
-};
+}
 
-document
-  .querySelector(".commentForm")
-  .addEventListener("submit", addCommentHandler);
+const addCommentButton = document.querySelector(".commentForm");
+
+if (addCommentButton) {
+  addCommentButton.addEventListener("submit", function (event) {
+    event.preventDefault();
+    addCommentHandler();
+  });
+}

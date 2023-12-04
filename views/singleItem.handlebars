@@ -20,7 +20,7 @@
   <p>{{product.description}}</p>
   </div>
 
-  
+
 <div class="fav-item">
   {{#if loggedIn}}
     {{! User funds vs Price }}
@@ -39,16 +39,19 @@
         {{/if}}
       {{/if}}
     {{/if}}
-</div>
 
-  <img src="/images/{{product.filename}}" alt="{{product.description}}" class="center" id="single-img"/>
+    {{! Favorite }}
+    <form action="/api/productUsers/{{product.id}}" method="POST">
+      <button type="submit" class="heart-emoji" id="favorite-item" data-logged-in="{{loggedIn}}">💗</button>
+    </form>
+    {{!-- data-favorite="{{}}" --}}
 
     {{! Add Comment }}
-    <div class="comment-section">
-      <label class="comment-label" for="comment">Leave a Comment:</label>
-      <form class="commentForm", action="/api/comments" method="POST" id="add-comm">
-        <textarea class="comment-textarea" id="commentContent" name="content" required></textarea>
-        <input type="hidden" name="product_id" value="{{product.id}}" />
+    <div>
+      <form class="commentForm" data-logged-in="{{loggedIn}}" action="/api/comments" method="POST">
+        <label for="comment">Leave a Comment:</label>
+        <textarea id="commentContent" name="content" required></textarea>
+        <input type="hidden" id="addCommment" name="product_id" value="{{product.id}}" />
 
         <div class="comment-submit">
           <button type="submit">Add Comment</button>

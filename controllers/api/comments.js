@@ -13,9 +13,6 @@ router.post("/", withAuth, async (req, res) => {
         .json({ error: "Content and product_id are required." });
     }
 
-    console.log("\n------content-----\n", content);
-    console.log("\n------product_id-----\n", product_id);
-
     const created = await Comments.create({
       content,
       users_id: req.session.users_id,
@@ -23,10 +20,6 @@ router.post("/", withAuth, async (req, res) => {
     });
 
     const createdComment = created.get({ plain: true });
-
-    console.log("\n-------Created Comment------\n", createdComment);
-
-    console.log("\n-------user_id------\n", req.session.users_id);
 
     return res.json(createdComment);
   } catch (error) {

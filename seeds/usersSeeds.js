@@ -1,86 +1,25 @@
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
+const faker = require("faker");
 
-const userData = [
-  {
-    username: "sparklepanda",
-    password: "password1",
-    funds: 25,
-  },
-  {
-    username: "quantumkid",
-    password: "password2",
-    funds: 15,
-  },
-  {
-    username: "lunaexplorer",
-    password: "password3",
-    funds: 47,
-  },
-  {
-    username: "neontiger22",
-    password: "password4",
-    funds: 89,
-  },
-  {
-    username: "starrydreamer",
-    password: "password5",
-    funds: 103,
-  },
-  {
-    username: "cyberphoenix",
-    password: "password6",
-    funds: 204,
-  },
-  {
-    username: "oceanwhisper",
-    password: "password7",
-    funds: 65,
-  },
-  {
-    username: "galacticgamer",
-    password: "password8",
-    funds: 8,
-  },
-  {
-    username: "midnighthowler",
-    password: "password9",
-    funds: 32,
-  },
-  {
-    username: "rainbowrider",
-    password: "password10",
-    funds: 43,
-  },
-  {
-    username: "frostyninja",
-    password: "password11",
-    funds: 301,
-  },
-  {
-    username: "stealthystriker",
-    password: "password12",
-    funds: 87,
-  },
-  {
-    username: "velvetvoyager",
-    password: "password13",
-    funds: 51,
-  },
-  {
-    username: "ivoryinferno",
-    password: "password14",
-    funds: 38,
-  },
-  {
-    username: "enchantedEmber",
-    password: "password15",
-    funds: 75,
-  },
-];
+const generateRandomUsers = (count) => {
+  const users = [];
+
+  for (let i = 0; i < count; i++) {
+    const username = faker.internet.userName().toLowerCase();
+    const password = faker.internet.password();
+    const funds = faker.datatype.number({ min: 1, max: 500 });
+
+    users.push({ username, password, funds });
+  }
+
+  return users;
+};
 
 const seedUsers = async () => {
   try {
+    const userData = generateRandomUsers(15);
+
     const usersWithHashedPasswords = await Promise.all(
       userData.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);

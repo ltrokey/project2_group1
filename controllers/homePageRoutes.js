@@ -1,12 +1,24 @@
 const router = require("express").Router();
+const { Products, Users, Comments } = require("../models");
 
-const {
-  Categories,
-  Products,
-  Users,
-  ProductUsers,
-  Comments,
-} = require("../models");
+// GET loggedIn User Info.
+const getUserInfo = async (req) => {
+  let userPlain = null;
+  let userFunds = null;
+
+  if (req.session.loggedIn) {
+    const user = req.session.users_id
+      ? await Users.findByPk(req.session.users_id)
+      : null;
+
+    if (user) {
+      userPlain = user.get({ plain: true });
+      userFunds = user.funds;
+    }
+  }
+
+  return { userPlain, userFunds };
+};
 
 // GET all products for homepage
 router.get("/", async (req, res) => {
@@ -19,23 +31,21 @@ router.get("/", async (req, res) => {
       product.get({ plain: true })
     );
 
-    const user = req.session.users_id
-      ? await Users.findByPk(req.session.users_id)
-      : null;
-    const userFunds = user ? user.funds : null;
+    const { userPlain, userFunds } = await getUserInfo(req);
 
     res.render("home", {
+      userPlain,
       products,
       userFunds,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json(err);
   }
 });
 
-//Get Products by Category
+// Get Products by Category
 router.get("/products/:category_id", async (req, res) => {
   try {
     const category_id = req.params.category_id;
@@ -51,8 +61,12 @@ router.get("/products/:category_id", async (req, res) => {
       product.get({ plain: true })
     );
 
+    const { userPlain, userFunds } = await getUserInfo(req);
+
     res.render("home", {
       products,
+      userFunds,
+      userPlain,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -79,7 +93,7 @@ const compareValues = (value1, operator, value2) => {
   }
 };
 
-//GET one Product
+// GET one Product
 router.get("/product/:id", async (req, res) => {
   try {
     const dbProductData = await Products.findByPk(req.params.id, {
@@ -110,10 +124,7 @@ router.get("/product/:id", async (req, res) => {
 
     const product = dbProductData.get({ plain: true });
 
-    const user = req.session.users_id
-      ? await Users.findByPk(req.session.users_id)
-      : null;
-    const userFunds = user ? user.funds : null;
+    const { userPlain, userFunds } = await getUserInfo(req);
 
     // Sort comments by created_at in descending order
     const sortedComments = product.comments.sort(
@@ -125,6 +136,7 @@ router.get("/product/:id", async (req, res) => {
         ...product,
         comments: sortedComments,
       },
+      userPlain,
       userFunds,
       compareValues,
       loggedIn: req.session.loggedIn,
@@ -149,6 +161,27 @@ router.get("/login", (req, res) => {
     return;
   }
   res.render("login");
+});
+
+// Updated
+router.get("/funds/:id/update", async (req, res) => {
+  try {
+    const { userPlain, userFunds } = await getUserInfo(req);
+
+    if (!req.session.loggedIn) {
+      res.redirect("/login");
+      return;
+    }
+
+    res.render("funds", {
+      userPlain,
+      userFunds,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
