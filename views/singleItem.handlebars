@@ -1,69 +1,80 @@
 <div class="item">
 
-  <h2>{{product.title}}</h2>
-
-  <p>{{product.description}}</p>
-
-  <img src="/images/{{product.filename}}" alt="{{product.description}}" />
-
-  <p>Price: ${{product.price}}</p>
-
-  {{#if loggedIn}}
-    {{! User funds vs Price }}
-    {{#if (compareValues userFunds "<" product.price)}}
-      <p>You don't have enough funds yet. You are
-        ${{calcDifference userFunds product.price}}
-        away!</p>
-    {{else}}
-      {{#if (compareValues userFunds ">" product.price)}}
-        <p>Congratulations! You have more than enough funds for this quest!</p>
-      {{else}}
-        {{#if (compareValues userFunds "==" product.price)}}
-          <p>Congratulations! You have exactly the enough funds for this quest!</p>
-        {{else}}
-          <p>You don't have the exact funds needed.</p>
-        {{/if}}
-      {{/if}}
-    {{/if}}
+    <div class="align-top" id="single-title">
+      <h2>{{product.title}}</h2>
+    </div>
 
     {{! Favorite }}
-    <form action="/api/productUsers/{{product.id}}" method="POST">
-      <button type="submit" class="heart-emoji" id="favorite-item" data-logged-in="{{loggedIn}}">💗</button>
-    </form>
-    {{!-- data-favorite="{{}}" --}}
-
-    {{! Add Comment }}
     <div>
-      <form class="commentForm", action="/api/comments" method="POST">
-        <label for="comment">Leave a Comment:</label>
-        <textarea id="commentContent" name="content" required></textarea>
-        <input type="hidden" name="product_id" value="{{product.id}}" />
-
-        <div>
-          <button type="submit">Add Comment</button>
-        </div>
+      <form action="/api/productUsers/{{product.id}}" method="POST">
+        <button type="submit" class="heart-emoji" id="favorite-item" data-logged-in="{{loggedIn}}">💗</button>
       </form>
     </div>
 
-  {{else}}
-    <p><a href="/login">Login</a> to leave a comment.</p>
-  {{/if}}
+    <div id="single-price">
+      <p>Price: ${{product.price}}</p>
+    </div>
 
-  {{!-- Comments --}}
-  <div class="comments">
-    <h3>Comment Section</h3>
-    <ul>
-      {{#each product.comments as |comment|}}
-        <li>
-            <p> Comment by {{comment.user.username}}
-                on
-                {{format_date comment.created_at}}
-            </p>
-            <p>{{comment.content}}</p>
-        </li>
-      {{/each}}
-    </ul>
-</div>
+  <div class="single-card" id="single-desc">
+   <p>{{product.description}}</p>
+  </div>
+
+  <div class="fav-item">
+    {{#if loggedIn}}
+      {{! User funds vs Price }}
+      {{#if (compareValues userFunds "<" product.price)}}
+        <p>You don't have enough funds yet. You are
+          ${{calcDifference userFunds product.price}}
+          away!</p>
+      {{else}}
+        {{#if (compareValues userFunds ">" product.price)}}
+          <p>Congratulations! You have more than enough funds for this quest!</p>
+        {{else}}
+          {{#if (compareValues userFunds "==" product.price)}}
+            <p>Congratulations! You have exactly the enough funds for this quest!</p>
+          {{else}}
+            <p>You don't have the exact funds needed.</p>
+          {{/if}}
+        {{/if}}
+      {{/if}}
+  </div>
+
+  <img src="/images/{{product.filename}}" alt="{{product.description}}" class="center" id="single-img"/>
+
+  <div class="comment-section">
+    <label class="comment-label" for="comment">Leave a Comment:</label>
+    <form class="commentForm" data-logged-in="{{loggedIn}}" action="/api/comments" method="POST" id="add-comm">
+      <textarea class="comment-textarea" id="commentContent" name="content" required></textarea>
+      <input type="hidden"  id="addCommment" name="product_id" value="{{product.id}}" />
+
+      <div class="comment-submit">
+        <button type="submit">Add Comment</button>
+      </div>
+    </form>
+  </div>
+
+    {{else}}
+      <p id="com-login"><a href="/login">Login</a> to leave a comment.</p>
+    {{/if}}
+
+    {{!-- Comments --}}
+    <div class="comments">
+      <h3>Comment Section</h3>
+      <div class="comm-form">
+      <ul>
+        {{#each product.comments as |comment|}}
+          <li>
+              <p class="comm-stamp"> Comment by {{comment.user.username}}
+                  on
+                  {{format_date comment.created_at}}
+              </p>
+              <p>{{comment.content}}</p>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
 
 <script src="/js/favoriteItem.js"></script>
+
 <script src="/js/addComment.js"></script>
