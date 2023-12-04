@@ -1,5 +1,3 @@
-// public/js/favoriteItem.js
-
 async function addToFavorites() {
   try {
     const productId = window.location.pathname.split("/").pop();
