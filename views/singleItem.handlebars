@@ -19,28 +19,28 @@
    <p>{{product.description}}</p>
   </div>
 
-  <div class="fav-item">
-    {{#if loggedIn}}
-      {{! User funds vs Price }}
-      {{#if (compareValues userFunds "<" product.price)}}
-        <p>You don't have enough funds yet. You are
-          ${{calcDifference userFunds product.price}}
-          away!</p>
-      {{else}}
-        {{#if (compareValues userFunds ">" product.price)}}
-          <p>Congratulations! You have more than enough funds for this quest!</p>
+{{#if loggedIn}}
+    <div class="fav-item">
+        {{! User funds vs Price }}
+        {{#if (compareValues userFunds "<" product.price)}}
+            <p>You don't have enough funds yet. You are ${{calcDifference userFunds product.price}} away!</p>
         {{else}}
-          {{#if (compareValues userFunds "==" product.price)}}
-            <p>Congratulations! You have exactly the enough funds for this quest!</p>
-          {{else}}
-            <p>You don't have the exact funds needed.</p>
-          {{/if}}
+            {{#if (compareValues userFunds ">" product.price)}}
+                <p>Congratulations! You have more than enough funds for this quest!</p>
+            {{else}}
+                {{#if (compareValues userFunds "==" product.price)}}
+                    <p>Congratulations! You have exactly the enough funds for this quest!</p>
+                {{else}}
+                    <p>You don't have the exact funds needed.</p>
+                {{/if}}
+            {{/if}}
         {{/if}}
-      {{/if}}
-  </div>
+    </div>
+{{/if}}
 
   <img src="/images/{{product.filename}}" alt="{{product.description}}" class="center" id="single-img"/>
 
+{{#if loggedIn}}
   <div class="comment-section">
     <label class="comment-label" for="comment">Leave a Comment:</label>
     <form class="commentForm" data-logged-in="{{loggedIn}}" action="/api/comments" method="POST" id="add-comm">
@@ -53,28 +53,27 @@
     </form>
   </div>
 
-    {{else}}
-      <p id="com-login"><a href="/login">Login</a> to leave a comment.</p>
-    {{/if}}
+{{else}}
+  <p id="com-login"><a href="/login">Login</a> to leave a comment.</p>
+{{/if}}
 
     {{!-- Comments --}}
-    <div class="comments">
-      <h3>Comment Section</h3>
-      <div class="comm-form">
-      <ul>
-        {{#each product.comments as |comment|}}
-          <li>
-              <p class="comm-stamp"> Comment by {{comment.user.username}}
-                  on
-                  {{format_date comment.created_at}}
-              </p>
-              <p>{{comment.content}}</p>
-          </li>
-        {{/each}}
-      </ul>
-    </div>
+  <div class="comments">
+    <h3>Comment Section</h3>
+    <div class="comm-form">
+    <ul>
+      {{#each product.comments as |comment|}}
+        <li>
+            <p class="comm-stamp"> Comment by {{comment.user.username}}
+                on
+                {{format_date comment.created_at}}
+            </p>
+            <p>{{comment.content}}</p>
+        </li>
+      {{/each}}
+    </ul>
   </div>
+</div>
 
 <script src="/js/favoriteItem.js"></script>
-
 <script src="/js/addComment.js"></script>
