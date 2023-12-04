@@ -4,24 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CoinQuest</title>
+    <link rel="icon" type="image/x-icon" href="./CoinQuest-logos.jpeg">
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
 
   <body>
 
-    <header>
-      <h1>Welcome to CoinQuest</h1>
+    <header class="wavy-header">
+      <h1>Welcome to CoinQuest!</h1>
 
-      <nav>
-        <a href="/">Home</a>
-        <a href="/profile">Profile</a>
+      <nav id="nav-bar">
+        <div id="nav-links">
+        <a class="p-nav" id="links" href="/">Home</a>
+        <a class="p-nav" id="links" href="/profile">Profile</a>
         {{#if loggedIn}}
-          <a href="/funds">CQ Funds: ${{userFunds}}</a>
+          <a id="cq-link" id="links" href="/funds">CQ Funds: ${{userFunds}}</a>
           <button id="logout">Logout</button>
         {{else}}
-          <a href="/login" id="login">Login</a>
+          <a class="p-nav" id="links" href="/login" id="login">Login</a>
         {{/if}}
       </nav>
+      </div>
     </header>
 
     <main>
