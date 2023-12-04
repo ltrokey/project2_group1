@@ -18,7 +18,7 @@
         <a class="p-nav" id="links" href="/">Home</a>
         <a class="p-nav" id="links" href="/profile">Profile</a>
         {{#if loggedIn}}
-          <a href="/funds/{{userPlain.id}}/update">CQ Funds: ${{userFunds}}</a>
+          <a id="cq-links" href="/funds/{{userPlain.id}}/update">CQ Funds: ${{userFunds}}</a>
           <button id="logout">Logout</button>
         {{else}}
           <a class="p-nav" id="links" href="/login" id="login">Login</a>
