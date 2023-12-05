@@ -1,6 +1,12 @@
+<div class="profile-header">
 <h1>Welcome, {{userPlain.username}}!</h1>
+</div>
 
-<h2>Quest Items</h2>
+<div class="profile-fav-items">
+<h2>💗 CoinQuest Items </h2>
+</div>
+
+<div class="profile-item-layout">
 <div class="productContainer">
   {{#each products as |product|}}
     <div class="productCards">
@@ -12,4 +18,5 @@
       </div>
     </div>
   {{/each}}
+</div>
 </div>
