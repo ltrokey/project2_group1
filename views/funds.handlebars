@@ -1,9 +1,13 @@
-<div>
+<div class="cq-fund-card">
+  <div class="cq-fund-prompt">
   <h2>Hello
     {{userPlain.username}}, do you want to update your CoinQuest Funds?</h2>
+  </div>
 
   <div>
+    <div class="current-cq-funds">
     <p>Current CQ Funds: ${{userFunds}}</p>
+    </div>
 
     <form class="updateFundsForm" action="/api/users/:{{userid}}" method="PUT">
 
