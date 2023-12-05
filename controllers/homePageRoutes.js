@@ -123,7 +123,6 @@ router.get("/product/:id", async (req, res) => {
     });
 
     const product = dbProductData.get({ plain: true });
-    console.log(product);
 
     const { userPlain, userFunds } = await getUserInfo(req);
 
