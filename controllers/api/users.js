@@ -5,6 +5,22 @@ const withAuth = require("../../utils/auth");
 // CREATE New User
 router.post("/signup", async (req, res) => {
   try {
+    // Check if the username already exists
+    const existingUser = await Users.findOne({
+      where: {
+        username: req.body.username.toLowerCase(),
+      },
+    });
+
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({
+          error: "Username already exists. Please choose a different username.",
+        });
+    }
+
+    // If the username is unique, create a new user
     const dbUserData = await Users.create({
       username: req.body.username.toLowerCase(),
       password: req.body.password,
@@ -18,7 +34,7 @@ router.post("/signup", async (req, res) => {
 
       res.status(200).json(dbUserData);
     });
-  } catch {
+  } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
