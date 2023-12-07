@@ -759,6 +759,13 @@ footer a:hover {
 
 /* Responsive styles for screens 320px and below */
 @media (max-width: 425px) {
+  header {
+    max-width: 500px;
+    max-height: 400px;
+  }
+  header h1 {
+    font-size: 1.25em;
+  }
   #nav-links {
     flex-direction: column;
   }
@@ -776,6 +783,9 @@ footer a:hover {
   #cq-link {
     font-size: 16px;
   }
+  header {
+    height: 400px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -785,5 +795,9 @@ footer a:hover {
 }
 
 /* Responsive styles for screens 2560px and below */
-@media (min-width: 2560px) {
+@media (min-width: 1025px) {
+  header {
+    height: 800px;
+  }
 }
+
