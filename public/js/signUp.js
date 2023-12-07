@@ -30,9 +30,17 @@ const signUpFormHandler = async (event) => {
       } else {
         const errorMessage = await res.json();
         console.error("Sign-up failed:", errorMessage);
-        alert(
-          "Failed to sign up. Please check your credentials and try again."
-        );
+
+        if (
+          errorMessage.error &&
+          errorMessage.error.includes("Username already exists")
+        ) {
+          alert("Username already exists. Please choose a different username.");
+        } else {
+          alert(
+            "Failed to sign up. Please check your credentials and try again."
+          );
+        }
       }
     } else {
       alert("Invalid funds value. Please enter a valid number.");

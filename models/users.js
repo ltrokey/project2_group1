@@ -20,6 +20,7 @@ Users.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      collate: "utf8_bin",
     },
     password: {
       type: DataTypes.STRING,
